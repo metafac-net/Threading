@@ -101,7 +101,7 @@ namespace MetaFac.Threading.Tests
             long result = 0;
             for (int a = 0; a < ActorCount; a++)
             {
-                result += await actors[a].FinalState.ConfigureAwait(false);
+                result += await actors[a].FinalState;
             }
 
             result.Should().Be(499500L);

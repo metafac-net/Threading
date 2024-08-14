@@ -20,8 +20,8 @@ namespace MetaFac.Threading.Tests
 
             // enqueue
             var workItem = new TestWorkItem(true, CancellationToken.None);
-            await queue.EnqueueAsync(workItem).ConfigureAwait(false);
-            var result = await workItem.GetTask().ConfigureAwait(false);
+            await queue.EnqueueAsync(workItem);
+            var result = await workItem.GetTask();
             result.Should().BeTrue();
         }
 
@@ -37,8 +37,8 @@ namespace MetaFac.Threading.Tests
 
             // enqueue
             var workItem = new TestWorkItem(true, CancellationToken.None);
-            await queue.EnqueueAsync(workItem).ConfigureAwait(false);
-            await workItem.GetTask().ConfigureAwait(false);
+            await queue.EnqueueAsync(workItem);
+            await workItem.GetTask();
 
             queue.Complete();
         }
@@ -55,8 +55,8 @@ namespace MetaFac.Threading.Tests
 
             // enqueue
             var workItem = new TestWorkItem(true, CancellationToken.None);
-            await queue.EnqueueAsync(workItem).ConfigureAwait(false);
-            await workItem.GetTask().ConfigureAwait(false);
+            await queue.EnqueueAsync(workItem);
+            await workItem.GetTask();
 
             queue.Complete();
             queue.Complete();
@@ -74,8 +74,8 @@ namespace MetaFac.Threading.Tests
 
             // enqueue
             var workItem = new TestWorkItem(true, CancellationToken.None);
-            await queue.EnqueueAsync(workItem).ConfigureAwait(false);
-            await workItem.GetTask().ConfigureAwait(false);
+            await queue.EnqueueAsync(workItem);
+            await workItem.GetTask();
 
             bool complete = queue.TryComplete();
             complete.Should().BeTrue();
@@ -94,8 +94,8 @@ namespace MetaFac.Threading.Tests
 
             // enqueue
             var workItem = new TestWorkItem(true, CancellationToken.None);
-            await queue.EnqueueAsync(workItem).ConfigureAwait(false);
-            await workItem.GetTask().ConfigureAwait(false);
+            await queue.EnqueueAsync(workItem);
+            await workItem.GetTask();
 
             bool complete = queue.TryComplete();
             complete.Should().BeTrue();
@@ -116,8 +116,8 @@ namespace MetaFac.Threading.Tests
             using (var queue = new ExecutionQueue<TestWorkItem>(queueFactory, cts.Token))
             {
                 var workItem = new TestWorkItem(true, CancellationToken.None);
-                await queue.EnqueueAsync(workItem).ConfigureAwait(false);
-                await workItem.GetTask().ConfigureAwait(false);
+                await queue.EnqueueAsync(workItem);
+                await workItem.GetTask();
 
                 // cancel
                 cts.Cancel();
@@ -138,11 +138,11 @@ namespace MetaFac.Threading.Tests
                 cts.Cancel();
 
                 var workItem = new TestWorkItem(true, CancellationToken.None);
-                await queue.EnqueueAsync(workItem).ConfigureAwait(false);
+                await queue.EnqueueAsync(workItem);
                 var ex = await Assert.ThrowsAsync<TaskCanceledException>(async () =>
                 {
-                    var result = await workItem.GetTask().ConfigureAwait(false);
-                }).ConfigureAwait(false);
+                    var result = await workItem.GetTask();
+                });
                 ex.Message.Should().Be("A task was canceled.");
             }
         }
@@ -158,8 +158,8 @@ namespace MetaFac.Threading.Tests
             using (var queue = new ExecutionQueue<TestWorkItem>(queueFactory, token))
             {
                 var workItem = new TestWorkItem(true, CancellationToken.None);
-                await queue.EnqueueAsync(workItem).ConfigureAwait(false);
-                await workItem.GetTask().ConfigureAwait(false);
+                await queue.EnqueueAsync(workItem);
+                await workItem.GetTask();
 
                 // dispose
                 queue.Dispose();
@@ -177,8 +177,8 @@ namespace MetaFac.Threading.Tests
             using (var queue = new ExecutionQueue<TestWorkItem>(queueFactory, token))
             {
                 var workItem = new TestWorkItem(true, CancellationToken.None);
-                await queue.EnqueueAsync(workItem).ConfigureAwait(false);
-                await workItem.GetTask().ConfigureAwait(false);
+                await queue.EnqueueAsync(workItem);
+                await workItem.GetTask();
 
                 // dispose
                 queue.Dispose();
@@ -203,9 +203,9 @@ namespace MetaFac.Threading.Tests
                 var workItem = new TestWorkItem(true, CancellationToken.None);
                 var ex = await Assert.ThrowsAsync<ObjectDisposedException>(async () =>
                 {
-                    await queue.EnqueueAsync(workItem).ConfigureAwait(false);
-                    var result = await workItem.GetTask().ConfigureAwait(false);
-                }).ConfigureAwait(false);
+                    await queue.EnqueueAsync(workItem);
+                    var result = await workItem.GetTask();
+                });
                 ex.Message.Should().StartWith("Cannot access a disposed object.");
             }
         }

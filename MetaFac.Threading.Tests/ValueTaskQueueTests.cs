@@ -33,8 +33,7 @@ namespace MetaFac.Threading.Tests
             {
                 for (int i = 0; i < iterations; i++)
                 {
-                    await queue.EnqueueAsync(false, CancellationToken.None, GoodTask, null)
-                        .ConfigureAwait(false);
+                    await queue.EnqueueAsync(false, CancellationToken.None, GoodTask, null);
                 }
 
                 var observer = new TaskCompletionSource<bool>();
