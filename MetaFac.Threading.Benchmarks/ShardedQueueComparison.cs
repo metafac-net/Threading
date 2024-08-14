@@ -8,7 +8,8 @@ using System.Threading.Tasks;
 namespace MetaFac.Threading.Benchmarks
 {
     [MemoryDiagnoser]
-    [SimpleJob(RuntimeMoniker.Net70)]
+    [SimpleJob(RuntimeMoniker.Net60)]
+    [SimpleJob(RuntimeMoniker.Net80)]
     [Orderer(BenchmarkDotNet.Order.SummaryOrderPolicy.SlowestToFastest)]
     public class ShardedQueueComparison
     {
