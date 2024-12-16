@@ -37,8 +37,8 @@ namespace MetaFac.Threading.Benchmarks
 
 
     [MemoryDiagnoser]
-    [SimpleJob(RuntimeMoniker.Net60)]
     [SimpleJob(RuntimeMoniker.Net80)]
+    [SimpleJob(RuntimeMoniker.Net90)]
     [Orderer(SummaryOrderPolicy.FastestToSlowest)]
     public class EventQueues
     {
