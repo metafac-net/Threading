@@ -1,4 +1,4 @@
-﻿using FluentAssertions;
+﻿using Shouldly;
 using System;
 using System.Diagnostics;
 using System.Threading;
@@ -40,7 +40,7 @@ namespace MetaFac.Threading.Tests
                 await queue.EnqueueAsync(true, CancellationToken.None, GoodTask, observer);
 
                 var result = await observer.Task;
-                result.Should().BeTrue();
+                result.ShouldBeTrue();
             }
         }
 
@@ -66,7 +66,7 @@ namespace MetaFac.Threading.Tests
                 {
                     var result = await observer.Task;
                 });
-                ex.Message.Should().Be("I'm a bad app!");
+                ex.Message.ShouldBe("I'm a bad app!");
             }
         }
 
@@ -167,7 +167,7 @@ namespace MetaFac.Threading.Tests
                 }
             }
 
-            (goodCount + failCount).Should().Be(iterations);
+            (goodCount + failCount).ShouldBe(iterations);
         }
     }
 }

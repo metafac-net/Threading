@@ -1,4 +1,4 @@
-﻿using FluentAssertions;
+﻿using Shouldly;
 using MetaFac.Threading.Core;
 using System;
 using System.Threading;
@@ -104,7 +104,7 @@ namespace MetaFac.Threading.Tests
                 result += await actors[a].FinalState;
             }
 
-            result.Should().Be(499500L);
+            result.ShouldBe(499500L);
         }
 
         // todo more implementations

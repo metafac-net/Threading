@@ -1,4 +1,4 @@
-﻿using FluentAssertions;
+﻿using Shouldly;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
@@ -22,7 +22,7 @@ namespace MetaFac.Threading.Tests
             var workItem = new TestWorkItem(true, CancellationToken.None);
             await queue.EnqueueAsync(workItem);
             var result = await workItem.GetTask();
-            result.Should().BeTrue();
+            result.ShouldBeTrue();
         }
 
         [Theory]
@@ -78,7 +78,7 @@ namespace MetaFac.Threading.Tests
             await workItem.GetTask();
 
             bool complete = queue.TryComplete();
-            complete.Should().BeTrue();
+            complete.ShouldBeTrue();
 
         }
 
@@ -98,10 +98,10 @@ namespace MetaFac.Threading.Tests
             await workItem.GetTask();
 
             bool complete = queue.TryComplete();
-            complete.Should().BeTrue();
+            complete.ShouldBeTrue();
 
             complete = queue.TryComplete();
-            complete.Should().BeFalse();
+            complete.ShouldBeFalse();
 
         }
 
@@ -143,7 +143,7 @@ namespace MetaFac.Threading.Tests
                 {
                     var result = await workItem.GetTask();
                 });
-                ex.Message.Should().Be("A task was canceled.");
+                ex.Message.ShouldBe("A task was canceled.");
             }
         }
 
@@ -206,7 +206,7 @@ namespace MetaFac.Threading.Tests
                     await queue.EnqueueAsync(workItem);
                     var result = await workItem.GetTask();
                 });
-                ex.Message.Should().StartWith("Cannot access a disposed object.");
+                ex.Message.ShouldStartWith("Cannot access a disposed object.");
             }
         }
 
